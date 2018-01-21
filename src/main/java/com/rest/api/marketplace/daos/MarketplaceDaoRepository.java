@@ -2,9 +2,13 @@ package com.rest.api.marketplace.daos;
 
 import java.util.HashMap;
 
-public class DaoRepository {
+public class MarketplaceDaoRepository {
 
     private HashMap<String, Dao> daoMap;
+
+    public MarketplaceDaoRepository(){
+        daoMap = new HashMap<>();
+    }
 
     public Dao getDaoObject(Class<?> daoClass){
         String daoClassName = daoClass.getName();
@@ -16,13 +20,13 @@ public class DaoRepository {
         }
     }
 
-    public void register(Class<?> daoClass) {
-        String daoClassName = daoClass.getName();
-        if (!daoMap.containsKey(daoClassName)) {
+    public void register(Class<?> modelClass, Class<?> daoClass) {
+        String modelClassName = modelClass.getName();
+        if (!daoMap.containsKey(modelClassName)) {
             try {
                 Dao daoObject = (Dao) daoClass.newInstance();
                 daoObject.init();
-                daoMap.put(daoClassName, daoObject);
+                daoMap.put(modelClassName, daoObject);
             }
             catch(InstantiationException e){
                 //log the message

@@ -11,6 +11,11 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
 
     private HashMap<String, HashMap<String ,T>> repositoryMap;
 
+    public InMemTransport(){
+        super();
+        this.repositoryMap = new HashMap<>();
+    }
+
     public void store(LookupKey key, T object){
         String datastore = key.getDatastore();
         String id = key.getId();
@@ -38,10 +43,10 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
     public List<T> list(LookupKey key) {
         String datastore = key.getDatastore();
         if (repositoryMap.containsKey(datastore)) {
-            return new ArrayList<T>(repositoryMap.get(datastore).values());
+            return new ArrayList<>(repositoryMap.get(datastore).values());
         }
         else{
-            return null;
+            return new ArrayList<>();
         }
     }
 

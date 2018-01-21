@@ -8,7 +8,7 @@ import java.util.List;
 // The class needs to be implemented for the persistence storage
 public class MongoTransport<T extends MarketplaceResource> implements  MarketplaceTransport<T>{
 
-    public static final String NAME = "persistence";
+    public static final String NAME = "persistent";
 
     public void store(LookupKey key, T object){
         return;

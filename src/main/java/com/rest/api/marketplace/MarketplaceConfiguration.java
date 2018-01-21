@@ -1,6 +1,7 @@
 package com.rest.api.marketplace;
 
-import com.rest.api.marketplace.daos.DaoRepository;
+import com.rest.api.marketplace.daos.MarketplaceDaoRepository;
+import com.rest.api.marketplace.daos.ProjectDao;
 import com.rest.api.marketplace.models.*;
 import com.rest.api.marketplace.transports.InMemTransport;
 import com.rest.api.marketplace.transports.MongoTransport;
@@ -21,15 +22,15 @@ public class MarketplaceConfiguration {
     }
 
     @Bean
-    public DaoRepository daoRepository() {
-        DaoRepository daoRepositoryObj = new DaoRepository();
-        daoRepositoryObj.register(Project.class);
-        daoRepositoryObj.register(Bid.class);
-        daoRepositoryObj.register(Buyer.class);
-        daoRepositoryObj.register(Project.class);
-        daoRepositoryObj.register(Seller.class);
-        // future release item
-        daoRepositoryObj.register(Review.class);
+    public MarketplaceDaoRepository daoRepository() {
+        MarketplaceDaoRepository daoRepositoryObj = new MarketplaceDaoRepository();
+        daoRepositoryObj.register(Project.class, ProjectDao.class);
+//        daoRepositoryObj.register(Bid.class);
+//        daoRepositoryObj.register(Buyer.class);
+//        daoRepositoryObj.register(Project.class);
+//        daoRepositoryObj.register(Seller.class);
+//        // future release item
+//        daoRepositoryObj.register(Review.class);
         return daoRepositoryObj;
     }
 
