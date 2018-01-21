@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface Dao<T extends MarketplaceResource> {
 
+    void init();
     void store(String id, T object);
     T load(String id);
     List<T> list();

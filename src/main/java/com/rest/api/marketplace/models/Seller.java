@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Seller extends User{
 
+    public static final String REST_RESOURCE_NAME = "sellers";
+
     private ArrayList<Review> reviews;
     private Date joinDate;
     private ArrayList<Project> activeProjects;

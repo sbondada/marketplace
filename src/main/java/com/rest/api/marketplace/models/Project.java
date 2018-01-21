@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public class Project implements MarketplaceResource{
 
+    public static final String REST_RESOURCE_NAME = "projects";
+
     private String id;
     private String title;
     private String description;

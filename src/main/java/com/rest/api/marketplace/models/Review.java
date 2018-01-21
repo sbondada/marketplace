@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class Review implements MarketplaceResource{
 
+    public static final String REST_RESOURCE_NAME = "reviews";
     private String id;
     private String message;
     private Date publishedDate;

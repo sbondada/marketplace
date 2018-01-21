@@ -5,6 +5,8 @@ import java.util.UUID;
 
 public class Buyer extends User{
 
+    public static final String REST_RESOURCE_NAME = "buyers";
+
     private ArrayList<Review> reviews;
     private PayRate avgAskingRate;
     private ArrayList<Project> activeProjects;

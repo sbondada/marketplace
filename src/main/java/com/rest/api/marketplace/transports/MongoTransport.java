@@ -1,5 +1,6 @@
 package com.rest.api.marketplace.transports;
 
+import com.rest.api.marketplace.models.LookupKey;
 import com.rest.api.marketplace.models.MarketplaceResource;
 
 import java.util.List;
@@ -7,16 +8,18 @@ import java.util.List;
 // The class needs to be implemented for the persistence storage
 public class MongoTransport<T extends MarketplaceResource> implements  MarketplaceTransport<T>{
 
-    public void store(String id, T object){
+    public static final String NAME = "persistence";
+
+    public void store(LookupKey key, T object){
         return;
     }
-    public T load(String id){
+    public T load(LookupKey key){
         return null;
     }
-    public List<T> list() {
+    public List<T> list(LookupKey key) {
         return null;
     }
-    public void delete(String id){
+    public void delete(LookupKey key){
         return;
     }
 

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class Bid implements MarketplaceResource{
 
+    public static final String REST_RESOURCE_NAME = "bids";
     private String id;
     private Project associatedProject;
     private PayRate bidRate;
