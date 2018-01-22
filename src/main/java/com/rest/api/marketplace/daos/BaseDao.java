@@ -14,7 +14,7 @@ public abstract class BaseDao<T extends MarketplaceResource> implements Dao<T>{
 
     private MarketplaceTransport transport;
 
-    public void init(){
+    public BaseDao(){
         switch (MarketplaceConfiguration.TRANSPORT_SELECTOR) {
             case MongoTransport.NAME:
                 transport = new MongoTransport();

@@ -1,9 +1,12 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Contact implements MarketplaceModel {
     private String email;
     private String phoneNo;
-    private String Address;
+    private String address;
 
     public String getEmail() {
         return email;
@@ -22,10 +25,10 @@ public class Contact implements MarketplaceModel {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        address = address;
     }
 }

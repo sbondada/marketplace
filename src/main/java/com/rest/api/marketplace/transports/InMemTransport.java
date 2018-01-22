@@ -46,7 +46,7 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
             return new ArrayList<>(repositoryMap.get(datastore).values());
         }
         else{
-            return new ArrayList<>();
+            return null;
         }
     }
 

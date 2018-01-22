@@ -1,9 +1,12 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project implements MarketplaceResource{
 
     public static final String REST_RESOURCE_NAME = "projects";
@@ -12,18 +15,17 @@ public class Project implements MarketplaceResource{
     private String title;
     private String description;
     private ArrayList<Tag> tags;
+    @JsonProperty("est_DOD")
     private Date estDeliveryTime;
-    private PayRate estimatedCost;
+    @JsonProperty("est_cost")
+    private Float estimatedCost;
+    @JsonProperty("bid_end_date")
     private Date bidEndDate;
+    @JsonProperty("creation_date")
     private Date creationDate;
-    private Seller publisher;
-
-    public Project(String title){
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.creationDate = new Date();
-    }
-
+    private String publisherId;
+    @JsonProperty("bid_status")
+    private String bidStatus;
 
     public String getId() {
         return id;
@@ -65,11 +67,11 @@ public class Project implements MarketplaceResource{
         this.estDeliveryTime = estDeliveryTime;
     }
 
-    public PayRate getEstimatedCost() {
+    public  Float getEstimatedCost() {
         return estimatedCost;
     }
 
-    public void setEstimatedCost(PayRate estimatedCost) {
+    public void setEstimatedCost(Float estimatedCost) {
         this.estimatedCost = estimatedCost;
     }
 
@@ -89,12 +91,20 @@ public class Project implements MarketplaceResource{
         this.creationDate = creationDate;
     }
 
-    public Seller getPublisher() {
-        return publisher;
+    public String getPublisherId() {
+        return publisherId;
     }
 
-    public void setPublisher(Seller publisher) {
-        this.publisher = publisher;
+    public void setPublisherId(String publisherId) {
+        this.publisherId= publisherId;
+    }
+
+    public String getBidStatus() {
+        return bidStatus;
+    }
+
+    public void setBidStatus(String bidStatus) {
+        this.bidStatus = bidStatus;
     }
 
 }

@@ -1,63 +1,69 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Buyer extends User{
 
     public static final String REST_RESOURCE_NAME = "buyers";
 
-    private ArrayList<Review> reviews;
-    private PayRate avgAskingRate;
-    private ArrayList<Project> activeProjects;
-    private ArrayList<Project> finishedProjects;
-    private long totalEarned;
+    @JsonProperty("active_projects")
+    private ArrayList<String> activeProjects;
+    @JsonProperty("finished_projects")
+    private ArrayList<String> finishedProjects;
+    @JsonProperty("total_earnings")
+    private Long totalEarnings;
+    @JsonProperty("finished_projects")
+    private Float avgAskingRate;
+    @JsonProperty("submitted_bids")
+    private ArrayList<String> submittedBids;
 
-    public Buyer(String name, String company) {
-        this.setId(UUID.randomUUID().toString());
-        this.setName(name);
-        this.setCompany(company);
-    }
-
-
-    public ArrayList<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public PayRate getAvgAskingRate() {
+    public Float getAvgAskingRate() {
         return avgAskingRate;
     }
 
-    public void setAvgAskingRate(PayRate avgAskingRate) {
+    public void setAvgAskingRate(Float avgAskingRate) {
         this.avgAskingRate = avgAskingRate;
     }
 
-    public ArrayList<Project> getActiveProjects() {
+    public ArrayList<String> getActiveProjects() {
         return activeProjects;
     }
 
-    public void setActiveProjects(ArrayList<Project> activeProjects) {
+    public void setActiveProjects(ArrayList<String> activeProjects) {
         this.activeProjects = activeProjects;
     }
 
-    public ArrayList<Project> getFinishedProjects() {
+    public ArrayList<String> getFinishedProjects() {
         return finishedProjects;
     }
 
-    public void setFinishedProjects(ArrayList<Project> finishedProjects) {
+    public void setFinishedProjects(ArrayList<String> finishedProjects) {
         this.finishedProjects = finishedProjects;
     }
 
-    public long getTotalEarned() {
-        return totalEarned;
+    public long getTotalEarnings() {
+        return totalEarnings;
     }
 
-    public void setTotalEarned(long totalEarned) {
-        this.totalEarned = totalEarned;
+    public void setTotalEarnings(long totalEarned) {
+        this.totalEarnings = totalEarnings;
+    }
+
+    public ArrayList<String> getSubmittedBids() {
+        return submittedBids;
+    }
+
+    public void setSubmittedBids(ArrayList<String> submittedBids) {
+        this.submittedBids = submittedBids;
+    }
+
+    public void addBid(String bidId){
+        this.submittedBids.add(bidId);
     }
 
 }

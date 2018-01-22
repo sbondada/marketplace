@@ -1,8 +1,12 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.UUID;
 
+//To be added as the future feature
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Review implements MarketplaceResource{
 
     public static final String REST_RESOURCE_NAME = "reviews";
@@ -10,13 +14,6 @@ public class Review implements MarketplaceResource{
     private String message;
     private Date publishedDate;
     private User publisher;
-
-    public Review(String message, User publisher) {
-       this.id = UUID.randomUUID().toString();
-       this.message = message;
-       this.publishedDate =  new Date();
-       this.publisher =  publisher;
-    }
 
     public String getId() {
         return id;

@@ -1,43 +1,40 @@
 package com.rest.api.marketplace.controllers;
 
 import com.rest.api.marketplace.daos.MarketplaceDaoRepository;
-import com.rest.api.marketplace.daos.ProjectDao;
 import com.rest.api.marketplace.models.Project;
+import com.rest.api.marketplace.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
-import static java.util.Objects.isNull;
 
 @RestController
 @RequestMapping("/rest/resources")
 public class ProjectsController {
 
     @Autowired
-    private MarketplaceDaoRepository daoRepository;
-
-    private ProjectDao daoObject;
-
-    public void init(){
-        if (isNull(daoObject)) {
-            daoObject = (ProjectDao) daoRepository.getDaoObject(Project.class);
-        }
-    }
+    private ProjectService projectService;
 
     @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME, method = RequestMethod.GET)
     public List<Project> getProjectList(){
-        init();
-        return daoObject.getList();
+       return projectService.getProjectList();
     }
 
     @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME + "/{project_id}", method = RequestMethod.GET)
-    public Project getProject(@PathVariable("project_id") String id){
-        init();
-        return daoObject.get(id);
+    public ResponseEntity<Project> getProject(@PathParam("project_id") String id){
+       return projectService.getProject(id);
     }
+
+    @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME, method = RequestMethod.POST)
+    public ResponseEntity<String> createProject(@RequestBody Project projectObj) {
+      return projectService.createProject(projectObj);
+    }
+
 
 }

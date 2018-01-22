@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface Dao<T extends MarketplaceResource> {
 
-    void init();
     void store(LookupKey key, T object);
     T load(LookupKey key);
     List<T> list(LookupKey key);

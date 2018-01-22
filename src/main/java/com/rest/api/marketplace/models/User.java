@@ -1,11 +1,18 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class User implements MarketplaceResource{
 
     private String id;
     private String name;
-    private String Company;
+    private String company;
+    @JsonProperty("contact_details")
     private Contact contactDetails;
+//    //To be a future feature
+//    private ArrayList<Review> reviews;
 
     public String getName() {
         return name;
@@ -16,11 +23,11 @@ public abstract class User implements MarketplaceResource{
     }
 
     public String getCompany() {
-        return Company;
+        return company;
     }
 
     public void setCompany(String company) {
-        Company = company;
+        company = company;
     }
 
     public Contact getContactDetails() {
@@ -38,4 +45,12 @@ public abstract class User implements MarketplaceResource{
     public void setId(String id) {
         this.id = id;
     }
+
+//    public ArrayList<Review> getReviews() {
+//        return reviews;
+//    }
+//
+//    public void setReviews(ArrayList<Review> reviews) {
+//        this.reviews = reviews;
+//    }
 }

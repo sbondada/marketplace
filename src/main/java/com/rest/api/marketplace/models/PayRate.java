@@ -1,12 +1,13 @@
 package com.rest.api.marketplace.models;
 
+//To be future feature (giving more ways to bid)
 public class PayRate implements MarketplaceModel{
     private enum PayType{
         HOURLY, MONTHLY, FIXED
     }
 
     private PayType type;
-    private int value;
+    private Integer value;
 
     public PayType getType() {
         return type;
@@ -16,7 +17,7 @@ public class PayRate implements MarketplaceModel{
         this.type = type;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 

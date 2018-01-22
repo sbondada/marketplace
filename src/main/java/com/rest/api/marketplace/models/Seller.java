@@ -1,26 +1,25 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.Date;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Seller extends User{
 
     public static final String REST_RESOURCE_NAME = "sellers";
 
-    private ArrayList<Review> reviews;
     private Date joinDate;
+    @JsonProperty("active_projects")
     private ArrayList<Project> activeProjects;
+    @JsonProperty("finished_projects")
     private ArrayList<Project> finshedProjects;
+    @JsonProperty("total_spent")
     private long totalSpent;
-    private PayRate avgPayingRate;
-
-    public ArrayList<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(ArrayList<Review> reviews) {
-        this.reviews = reviews;
-    }
+    @JsonProperty("avg_paying_rate")
+    private Float avgPayingRate;
 
     public Date getJoinDate() {
         return joinDate;
@@ -54,11 +53,11 @@ public class Seller extends User{
         this.totalSpent = totalSpent;
     }
 
-    public PayRate getAvgPayingRate() {
+    public Float getAvgPayingRate() {
         return avgPayingRate;
     }
 
-    public void setAvgPayingRate(PayRate avgHourlyRate) {
+    public void setAvgPayingRate(Float avgHourlyRate) {
         this.avgPayingRate = avgHourlyRate;
     }
 

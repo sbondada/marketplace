@@ -1,20 +1,23 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid implements MarketplaceResource{
 
     public static final String REST_RESOURCE_NAME = "bids";
     private String id;
-    private Project associatedProject;
-    private PayRate bidRate;
-    private Buyer publisher;
-
-    public Bid(Project associatedProject, Buyer publisher){
-        this.id = UUID.randomUUID().toString();
-        this.associatedProject = associatedProject;
-        this.publisher = publisher;
-    }
+    @JsonProperty("associated_project_id")
+    private String associatedProjectId;
+    //for now the bid rate is always per hour. extras to be the future feature.
+    @JsonProperty("bid_rate")
+    private Float bidRate;
+    @JsonProperty("publisher_id")
+    private String buyerId;
 
     public String getId() {
         return id;
@@ -24,28 +27,28 @@ public class Bid implements MarketplaceResource{
         this.id = id;
     }
 
-    public Project getAssociatedProject() {
-        return associatedProject;
+    public String getAssociatedProjectId() {
+        return associatedProjectId;
     }
 
-    public void setAssociatedProject(Project associatedProject) {
-        this.associatedProject = associatedProject;
+    public void setAssociatedProjectId(String associatedProjectId) {
+        this.associatedProjectId = associatedProjectId;
     }
 
-    public PayRate getBidRate() {
+    public Float getBidRate() {
         return bidRate;
     }
 
-    public void setBidRate(PayRate bidRate) {
+    public void setBidRate(Float bidRate) {
         this.bidRate = bidRate;
     }
 
-    public Buyer getPublisher() {
-        return publisher;
+    public String getBuyerId() {
+        return buyerId;
     }
 
-    public void setPublisher(Buyer publisher) {
-        this.publisher = publisher;
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
     }
 
 }

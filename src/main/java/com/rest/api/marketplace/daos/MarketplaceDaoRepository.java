@@ -2,6 +2,7 @@ package com.rest.api.marketplace.daos;
 
 import java.util.HashMap;
 
+//To be in future feature
 public class MarketplaceDaoRepository {
 
     private HashMap<String, Dao> daoMap;
@@ -25,7 +26,6 @@ public class MarketplaceDaoRepository {
         if (!daoMap.containsKey(modelClassName)) {
             try {
                 Dao daoObject = (Dao) daoClass.newInstance();
-                daoObject.init();
                 daoMap.put(modelClassName, daoObject);
             }
             catch(InstantiationException e){
