@@ -1,9 +1,12 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,6 +14,9 @@ public class Buyer extends User{
 
     public static final String REST_RESOURCE_NAME = "buyers";
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
+    @JsonProperty("joinDate")
+    private Date joinDate;
     @JsonProperty("active_projects")
     private ArrayList<String> activeProjects;
     @JsonProperty("finished_projects")
@@ -21,6 +27,14 @@ public class Buyer extends User{
     private Float avgAskingRate;
     @JsonProperty("submitted_bids")
     private ArrayList<String> submittedBids;
+
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
 
     public Float getAvgAskingRate() {
         return avgAskingRate;

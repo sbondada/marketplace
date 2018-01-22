@@ -1,5 +1,6 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,6 +12,8 @@ public class Seller extends User{
 
     public static final String REST_RESOURCE_NAME = "sellers";
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
+    @JsonProperty("join_date")
     private Date joinDate;
     @JsonProperty("active_projects")
     private ArrayList<String> activeProjects;

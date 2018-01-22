@@ -27,6 +27,16 @@ public class ProjectService {
         return projectDaoObj.getList();
     }
 
+    public List<Project> getFilteredProjectList(String bidStatus){
+        List<Project> projectList = projectDaoObj.getList();
+        for( Project project: projectList){
+           if (!project.getBidStatus().equals(bidStatus)){
+               projectList.remove(project);
+           }
+        }
+        return projectList;
+    }
+
     public ResponseEntity<Project> getProject(String id){
         Project project = projectDaoObj.get(id);
         if(isNull(project)){
@@ -38,7 +48,7 @@ public class ProjectService {
 
     public ResponseEntity<String> createProject(String sellerId, Project projectObj) {
         Seller sellerObj = sellerDaoObj.get(sellerId);
-        if (sellerId!= projectObj.getSellerId()){
+        if (!sellerId.equals(projectObj.getSellerId())){
             return new ResponseEntity("Incorrect data. project doesnt seem to associate with the seller", HttpStatus.BAD_REQUEST);
         }
         if (!isNull(projectDaoObj.get(projectObj.getId()))){
@@ -46,23 +56,23 @@ public class ProjectService {
         }
         if (!isNull(sellerObj)){
             projectDaoObj.create(projectObj);
-            if (projectObj.getProjectStatus()==Project.PROJECT_STATUS_ACTIVE){
+            if (projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_ACTIVE)){
                 sellerObj.addActiveProjects(projectObj.getId());
             }
             else {
                 sellerObj.addFinishedProjects(projectObj.getId());
             }
             sellerDaoObj.edit(sellerId, sellerObj);
-            return new ResponseEntity("Bid Succesfully created", HttpStatus.CREATED);
+            return new ResponseEntity("Project Succesfully created", HttpStatus.CREATED);
         }
         else{
-            return new ResponseEntity("Bid creation failed, Buyer not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Project creation failed, Seller not found", HttpStatus.NOT_FOUND);
         }
     }
 
     public ResponseEntity<String> editProject(String sellerId, String projectId, Project updatedProjectObj){
         Seller sellerObj = sellerDaoObj.get(sellerId);
-        if (sellerId != updatedProjectObj.getSellerId()){
+        if (!sellerId.equals(updatedProjectObj.getSellerId())){
             return new ResponseEntity("Incorrect data. project doesnt seem to associate with the seller", HttpStatus.UNAUTHORIZED);
         }
         Project projectObj = projectDaoObj.get(projectId);
@@ -72,10 +82,10 @@ public class ProjectService {
         if (!isNull(projectObj) && sellerObj.getActiveProjects().contains(projectId)){
             projectObj.update(updatedProjectObj);
             projectDaoObj.edit(projectId, projectObj);
-            return new ResponseEntity("Bid Updated Succesfully", HttpStatus.CREATED);
+            return new ResponseEntity("Project Updated Succesfully", HttpStatus.CREATED);
         }
         else{
-            return new ResponseEntity("Bid creation failed, Buyer not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Project creation failed, Seller not found", HttpStatus.NOT_FOUND);
         }
 
     }

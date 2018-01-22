@@ -26,14 +26,14 @@ public class BidService {
 
    public ResponseEntity<String> createBid(String buyerId, Bid bidObj) {
        Buyer buyerObj = buyerDaoObj.get(buyerId);
-       if (buyerId != bidObj.getBuyerId()){
+       if (!buyerId.equals(bidObj.getBuyerId())){
            return new ResponseEntity("Incorrect data. bid doesnt seem to associate with the buyer", HttpStatus.BAD_REQUEST);
        }
        if (!isNull(bidDaoObj.get(bidObj.getId()))){
            return new ResponseEntity("Incorrect data. bid with same id exists", HttpStatus.BAD_REQUEST);
        }
         Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
-        if (projectObj.getBidStatus() == Project.BID_STATUS_CLOSE && projectObj.getProjectStatus() == Project.PROJECT_STATUS_FINISHED){
+        if (projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE) || projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_FINISHED)){
            return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
         }
        if (!isNull(buyerObj)){
@@ -60,7 +60,7 @@ public class BidService {
 
     public ResponseEntity<String> editBid(String buyerId, String bidId, Bid updatedBidObj) {
         Buyer buyerObj = buyerDaoObj.get(buyerId);
-        if (buyerId != updatedBidObj.getBuyerId()){
+        if (!buyerId.equals(updatedBidObj.getBuyerId())){
            return new ResponseEntity("Incorrect data. bid doesnt seem to associate with the buyer", HttpStatus.UNAUTHORIZED);
         }
         Bid bidObj = bidDaoObj.get(bidId);
@@ -68,7 +68,7 @@ public class BidService {
             return new ResponseEntity("bid doesnot exist", HttpStatus.NOT_FOUND);
         }
         Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
-        if (projectObj.getBidStatus() == Project.BID_STATUS_CLOSE && projectObj.getProjectStatus() == Project.PROJECT_STATUS_FINISHED){
+        if (projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE) || projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_FINISHED)){
            return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
         }
         if (!isNull(buyerObj) && buyerObj.getSubmittedBids().contains(bidId)){

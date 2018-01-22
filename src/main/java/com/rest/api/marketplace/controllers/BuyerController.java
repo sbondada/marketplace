@@ -4,12 +4,7 @@ import com.rest.api.marketplace.models.Buyer;
 import com.rest.api.marketplace.services.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.websocket.server.PathParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -25,13 +20,13 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.GET)
-    public Buyer getBuyer(@PathParam("buyer_id") String id) {
+    public Buyer getBuyer(@PathVariable("buyer_id") String id) {
         return buyerService.getBuyer(id);
     }
 
 
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.POST)
-    public ResponseEntity<String> editBuyer(@PathParam("buyer_id") String id, @RequestBody Buyer buyerObj) {
+    public ResponseEntity<String> editBuyer(@PathVariable("buyer_id") String id, @RequestBody Buyer buyerObj) {
         return buyerService.editBuyer(id, buyerObj);
     }
 

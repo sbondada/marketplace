@@ -1,9 +1,10 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
-import java.util.UUID;
 
 //To be added as the future feature
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,6 +13,9 @@ public class Review implements MarketplaceResource{
     public static final String REST_RESOURCE_NAME = "reviews";
     private String id;
     private String message;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
+    @JsonProperty("publisher_date")
     private Date publishedDate;
     private User publisher;
 

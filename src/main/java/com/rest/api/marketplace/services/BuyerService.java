@@ -27,7 +27,7 @@ public class BuyerService {
     }
 
     public ResponseEntity<String> editBuyer(String id, Buyer buyerObj) {
-        if (!isNull(buyerDaoObj.get(id))) {
+        if (isNull(buyerDaoObj.get(id))) {
             return new ResponseEntity("Buyer doesnot exist", HttpStatus.NOT_FOUND);
         }
         else{

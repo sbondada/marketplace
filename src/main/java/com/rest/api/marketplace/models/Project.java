@@ -1,5 +1,6 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -23,8 +24,10 @@ public class Project implements MarketplaceResource{
     private Date estDeliveryTime;
     @JsonProperty("est_cost")
     private Float estimatedCost;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm")
     @JsonProperty("bid_end_date")
     private Date bidEndDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
     @JsonProperty("creation_date")
     private Date creationDate;
     @JsonProperty("seller_id")
