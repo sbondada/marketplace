@@ -10,6 +10,10 @@ import java.util.Date;
 public class Project implements MarketplaceResource{
 
     public static final String REST_RESOURCE_NAME = "projects";
+    public static final String BID_STATUS_OPEN = "open";
+    public static final String BID_STATUS_CLOSE = "close";
+    public static final String PROJECT_STATUS_ACTIVE = "active";
+    public static final String PROJECT_STATUS_FINISHED = "finished";
 
     private String id;
     private String title;
@@ -23,9 +27,12 @@ public class Project implements MarketplaceResource{
     private Date bidEndDate;
     @JsonProperty("creation_date")
     private Date creationDate;
-    private String publisherId;
+    @JsonProperty("seller_id")
+    private String sellerId;
     @JsonProperty("bid_status")
     private String bidStatus;
+    @JsonProperty("project_status")
+    private String projectStatus;
 
     public String getId() {
         return id;
@@ -91,12 +98,12 @@ public class Project implements MarketplaceResource{
         this.creationDate = creationDate;
     }
 
-    public String getPublisherId() {
-        return publisherId;
+    public String getSellerId() {
+        return sellerId;
     }
 
-    public void setPublisherId(String publisherId) {
-        this.publisherId= publisherId;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 
     public String getBidStatus() {
@@ -107,4 +114,15 @@ public class Project implements MarketplaceResource{
         this.bidStatus = bidStatus;
     }
 
+    public String getProjectStatus() {
+        return projectStatus;
+    }
+
+    public void setProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    public void update(Project updatedProjectObj){
+
+    }
 }

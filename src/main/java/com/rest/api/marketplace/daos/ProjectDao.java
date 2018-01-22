@@ -30,4 +30,9 @@ public class ProjectDao extends BaseDao<Project>{
         LookupKey key = new LookupKey(DATASTORE, projectObj.getId());
         store(key, projectObj);
     }
+
+    public void edit(String id, Project projectObj){
+        LookupKey key = new LookupKey(DATASTORE, id);
+        update(key, projectObj);
+    }
 }

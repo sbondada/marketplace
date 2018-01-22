@@ -51,4 +51,8 @@ public class Bid implements MarketplaceResource{
         this.buyerId = buyerId;
     }
 
+    public void update(Bid updatedObj){
+        this.bidRate = updatedObj.getBidRate();
+    }
+
 }

@@ -10,7 +10,10 @@ public class MongoTransport<T extends MarketplaceResource> implements  Marketpla
 
     public static final String NAME = "persistent";
 
-    public void store(LookupKey key, T object){
+    public void update(LookupKey key, T object){
+        return;
+    }
+    public void store(LookupKey key, T object) {
         return;
     }
     public T load(LookupKey key){

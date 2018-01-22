@@ -13,9 +13,9 @@ public class Seller extends User{
 
     private Date joinDate;
     @JsonProperty("active_projects")
-    private ArrayList<Project> activeProjects;
+    private ArrayList<String> activeProjects;
     @JsonProperty("finished_projects")
-    private ArrayList<Project> finshedProjects;
+    private ArrayList<String> finishedProjects;
     @JsonProperty("total_spent")
     private long totalSpent;
     @JsonProperty("avg_paying_rate")
@@ -29,20 +29,20 @@ public class Seller extends User{
         this.joinDate = joinDate;
     }
 
-    public ArrayList<Project> getActiveProjects() {
+    public ArrayList<String> getActiveProjects() {
         return activeProjects;
     }
 
-    public void setActiveProjects(ArrayList<Project> activeProjects) {
+    public void setActiveProjects(ArrayList<String> activeProjects) {
         this.activeProjects = activeProjects;
     }
 
-    public ArrayList<Project> getFinshedProjects() {
-        return finshedProjects;
+    public ArrayList<String> getFinishedProjects() {
+        return finishedProjects;
     }
 
-    public void setFinshedProjects(ArrayList<Project> finshedProjects) {
-        this.finshedProjects = finshedProjects;
+    public void setFinishedProjects(ArrayList<String> finshedProjects) {
+        this.finishedProjects = finishedProjects;
     }
 
     public long getTotalSpent() {
@@ -61,4 +61,23 @@ public class Seller extends User{
         this.avgPayingRate = avgHourlyRate;
     }
 
+    public void addActiveProjects(String projectId){
+        if (!activeProjects.contains(projectId)) {
+            this.activeProjects.add(projectId);
+        }
+    }
+
+    public void removeActiveProjects(String projectId){
+        this.activeProjects.remove(projectId);
+    }
+
+    public void addFinishedProjects(String projectId){
+        if (!finishedProjects.contains(projectId)) {
+            this.finishedProjects.add(projectId);
+        }
+    }
+
+    public void removeFinishedProjects(String projectId) {
+        this.finishedProjects.remove(projectId);
+    }
 }

@@ -29,6 +29,14 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
         }
     }
 
+    public void update(LookupKey key, T object){
+        String datastore = key.getDatastore();
+        String id = key.getId();
+        if (repositoryMap.containsKey(datastore)) {
+            repositoryMap.get(datastore).put(id, object);
+        }
+    }
+
     public T load(LookupKey key){
         String datastore = key.getDatastore();
         String id = key.getId();

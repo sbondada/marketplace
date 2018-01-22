@@ -1,7 +1,7 @@
 package com.rest.api.marketplace.controllers;
 
-import com.rest.api.marketplace.daos.MarketplaceDaoRepository;
 import com.rest.api.marketplace.models.Project;
+import com.rest.api.marketplace.models.Seller;
 import com.rest.api.marketplace.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +31,21 @@ public class ProjectsController {
        return projectService.getProject(id);
     }
 
-    @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME, method = RequestMethod.POST)
-    public ResponseEntity<String> createProject(@RequestBody Project projectObj) {
-      return projectService.createProject(projectObj);
+    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}/" + Project.REST_RESOURCE_NAME,
+                    method = RequestMethod.POST)
+    public ResponseEntity<String> createProject(@PathParam("seller_id") String selllerId,
+                                                @RequestBody Project projectObj) {
+      return projectService.createProject(selllerId, projectObj);
     }
+
+    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}/" + Project.REST_RESOURCE_NAME +"/{project_id}",
+                    method = RequestMethod.POST)
+    public ResponseEntity<String> editProject(@PathParam("seller_id") String sellerId,
+                                               @PathParam("project_id") String projectId,
+                                               @RequestBody Project projectObj){
+        return projectService.editProject(sellerId, projectId, projectObj);
+    }
+
 
 
 }

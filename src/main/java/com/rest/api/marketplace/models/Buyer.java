@@ -63,7 +63,33 @@ public class Buyer extends User{
     }
 
     public void addBid(String bidId){
-        this.submittedBids.add(bidId);
+        if (!submittedBids.contains(bidId)){
+            this.submittedBids.add(bidId);
+        }
+    }
+
+    public void removeBid(String bidId){
+        this.submittedBids.remove(bidId);
+    }
+
+    public void addActiveProjects(String projectId){
+        if (!activeProjects.contains(projectId)) {
+            this.activeProjects.add(projectId);
+        }
+    }
+
+    public void removeActiveProjects(String projectId){
+        this.activeProjects.remove(projectId);
+    }
+
+    public void addFinishedProjects(String projectId){
+        if (!finishedProjects.contains(projectId)) {
+            this.finishedProjects.add(projectId);
+        }
+    }
+
+    public void removeFinishedProjects(String projectId){
+        this.finishedProjects.remove(projectId);
     }
 
 }

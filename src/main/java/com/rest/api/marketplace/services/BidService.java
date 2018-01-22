@@ -2,8 +2,10 @@ package com.rest.api.marketplace.services;
 
 import com.rest.api.marketplace.daos.BidDao;
 import com.rest.api.marketplace.daos.BuyerDao;
+import com.rest.api.marketplace.daos.ProjectDao;
 import com.rest.api.marketplace.models.Bid;
 import com.rest.api.marketplace.models.Buyer;
+import com.rest.api.marketplace.models.Project;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,19 +16,30 @@ import static java.util.Objects.isNull;
 public class BidService {
     private BuyerDao buyerDaoObj;
     private BidDao bidDaoObj;
+    private ProjectDao projectDaoObj;
 
     public BidService(){
        buyerDaoObj = new BuyerDao();
        bidDaoObj = new BidDao();
+       projectDaoObj = new ProjectDao();
     }
 
    public ResponseEntity<String> createBid(String buyerId, Bid bidObj) {
        Buyer buyerObj = buyerDaoObj.get(buyerId);
-       if (!isNull(buyerObj) && !buyerObj.getSubmittedBids().contains(bidObj.getId())){
-           bidObj.setBuyerId(buyerId);
+       if (buyerId != bidObj.getBuyerId()){
+           return new ResponseEntity("Incorrect data. bid doesnt seem to associate with the buyer", HttpStatus.BAD_REQUEST);
+       }
+       if (!isNull(bidDaoObj.get(bidObj.getId()))){
+           return new ResponseEntity("Incorrect data. bid with same id exists", HttpStatus.BAD_REQUEST);
+       }
+        Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
+        if (projectObj.getBidStatus() == Project.BID_STATUS_CLOSE && projectObj.getProjectStatus() == Project.PROJECT_STATUS_FINISHED){
+           return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
+        }
+       if (!isNull(buyerObj)){
            bidDaoObj.create(bidObj);
            buyerObj.addBid(bidObj.getId());
-           buyerDaoObj.update(buyerId, buyerObj);
+           buyerDaoObj.edit(buyerId, buyerObj);
            return new ResponseEntity("Bid Succesfully created", HttpStatus.CREATED);
        }
        else{
@@ -37,12 +50,36 @@ public class BidService {
     public ResponseEntity<Bid> getBid(String buyerId, String bidId) {
         Buyer buyerObj = buyerDaoObj.get(buyerId);
         if (!isNull(buyerObj) && buyerObj.getSubmittedBids().contains(bidId)){
-            Bid bid = bidDaoObj.get(bidId);
-            return new ResponseEntity(bid, HttpStatus.OK);
+            Bid bidObj = bidDaoObj.get(bidId);
+            return new ResponseEntity(bidObj, HttpStatus.OK);
         }
         else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    public ResponseEntity<String> editBid(String buyerId, String bidId, Bid updatedBidObj) {
+        Buyer buyerObj = buyerDaoObj.get(buyerId);
+        if (buyerId != updatedBidObj.getBuyerId()){
+           return new ResponseEntity("Incorrect data. bid doesnt seem to associate with the buyer", HttpStatus.UNAUTHORIZED);
+        }
+        Bid bidObj = bidDaoObj.get(bidId);
+        if (isNull(bidObj)) {
+            return new ResponseEntity("bid doesnot exist", HttpStatus.NOT_FOUND);
+        }
+        Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
+        if (projectObj.getBidStatus() == Project.BID_STATUS_CLOSE && projectObj.getProjectStatus() == Project.PROJECT_STATUS_FINISHED){
+           return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
+        }
+        if (!isNull(buyerObj) && buyerObj.getSubmittedBids().contains(bidId)){
+            bidObj.update(updatedBidObj);
+            bidDaoObj.edit(bidId, bidObj);
+            return new ResponseEntity("Bid Updated Succesfully", HttpStatus.CREATED);
+        }
+        else{
+            return new ResponseEntity("Bid creation failed, Buyer not found", HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }

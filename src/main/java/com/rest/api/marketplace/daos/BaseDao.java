@@ -29,7 +29,9 @@ public abstract class BaseDao<T extends MarketplaceResource> implements Dao<T>{
     public void store(LookupKey key, T object){
         transport.store(key, object);
     }
-
+    public void update(LookupKey key, T object){
+        transport.update(key, object);
+    }
     public T load(LookupKey key){
         return (T) transport.load(key);
     }

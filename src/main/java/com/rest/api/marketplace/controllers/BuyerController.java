@@ -19,7 +19,7 @@ public class BuyerController {
     @Autowired
     private BuyerService buyerService;
 
-    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME , method = RequestMethod.GET)
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME , method = RequestMethod.POST)
     public ResponseEntity<String> createBuyer(@RequestBody Buyer buyerObj) {
         return buyerService.createBuyer(buyerObj);
     }
@@ -27,6 +27,12 @@ public class BuyerController {
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.GET)
     public Buyer getBuyer(@PathParam("buyer_id") String id) {
         return buyerService.getBuyer(id);
+    }
+
+
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.POST)
+    public ResponseEntity<String> editBuyer(@PathParam("buyer_id") String id, @RequestBody Buyer buyerObj) {
+        return buyerService.editBuyer(id, buyerObj);
     }
 
 }

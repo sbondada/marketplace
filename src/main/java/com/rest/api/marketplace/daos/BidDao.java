@@ -20,4 +20,9 @@ public class BidDao extends BaseDao<Bid> {
         return load(key);
     }
 
+    public void edit(String id, Bid bidObj){
+        LookupKey key = new LookupKey(DATASTORE, id);
+        update(key, bidObj);
+    }
+
 }

@@ -27,8 +27,8 @@ public class BuyerDao extends BaseDao<Buyer> {
         store(key, buyerObj);
     }
 
-    public void update(String buyerId, Buyer buyerObj){
+    public void edit(String buyerId, Buyer buyerObj){
         LookupKey key = new LookupKey(DATASTORE, buyerId);
-        store(key, buyerObj);
+        update(key, buyerObj);
     }
 }
