@@ -1,8 +1,10 @@
 package com.rest.api.marketplace.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -18,6 +20,10 @@ public class Bid implements MarketplaceResource{
     private Float bidRate;
     @JsonProperty("publisher_id")
     private String buyerId;
+
+    @JsonProperty("expirt_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm")
+    private Date expiryDate;
 
     public String getId() {
         return id;
@@ -51,8 +57,18 @@ public class Bid implements MarketplaceResource{
         this.buyerId = buyerId;
     }
 
+
+    //only updating the fields which are updatable
     public void update(Bid updatedObj){
         this.bidRate = updatedObj.getBidRate();
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
 }

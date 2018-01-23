@@ -20,7 +20,7 @@ public class BuyerController {
     }
 
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.GET)
-    public Buyer getBuyer(@PathVariable("buyer_id") String id) {
+    public ResponseEntity<Buyer> getBuyer(@PathVariable("buyer_id") String id) {
         return buyerService.getBuyer(id);
     }
 

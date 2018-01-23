@@ -19,7 +19,7 @@ public class SellerController {
     }
 
     @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}", method = RequestMethod.GET)
-    public Seller getSeller(@PathVariable("seller_id") String id) {
+    public ResponseEntity<Seller> getSeller(@PathVariable("seller_id") String id) {
         return sellerService.getSeller(id);
     }
 

@@ -21,8 +21,10 @@ public class Seller extends User{
     private ArrayList<String> activeProjects;
     @JsonProperty("finished_projects")
     private ArrayList<String> finishedProjects;
+    //To be future feature
     @JsonProperty("total_spent")
     private long totalSpent;
+    //To be future feature
     @JsonProperty("avg_paying_rate")
     private Float avgPayingRate;
 
@@ -91,4 +93,5 @@ public class Seller extends User{
     public void removeFinishedProjects(String projectId) {
         this.finishedProjects.remove(projectId);
     }
+
 }

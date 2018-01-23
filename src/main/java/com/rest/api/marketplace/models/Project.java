@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.util.Objects.isNull;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project implements MarketplaceResource{
 
@@ -22,8 +24,6 @@ public class Project implements MarketplaceResource{
     private ArrayList<Tag> tags;
     @JsonProperty("est_DOD")
     private Date estDeliveryTime;
-    @JsonProperty("est_cost")
-    private Float estimatedCost;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm")
     @JsonProperty("bid_end_date")
     private Date bidEndDate;
@@ -36,6 +36,10 @@ public class Project implements MarketplaceResource{
     private String bidStatus;
     @JsonProperty("project_status")
     private String projectStatus;
+    @JsonProperty("lowest_bid_rate")
+    private Float lowestBidRate;
+    @JsonProperty("lowest_bidder")
+    private String lowestBidder;
 
     public String getId() {
         return id;
@@ -75,14 +79,6 @@ public class Project implements MarketplaceResource{
 
     public void setEstDeliveryTime(Date estDeliveryTime) {
         this.estDeliveryTime = estDeliveryTime;
-    }
-
-    public  Float getEstimatedCost() {
-        return estimatedCost;
-    }
-
-    public void setEstimatedCost(Float estimatedCost) {
-        this.estimatedCost = estimatedCost;
     }
 
     public Date getBidEndDate() {
@@ -125,7 +121,43 @@ public class Project implements MarketplaceResource{
         this.projectStatus = projectStatus;
     }
 
-    public void update(Project updatedProjectObj){
+    public boolean adjustBidRate(Float bidRate, String bidId){
+       if(isNull(bidRate) || isNull(bidId)){
+           setLowestBidRate(bidRate);
+           setLowestBidder(bidId);
+           return true;
+       }
+       else{
+           if(getLowestBidRate() > bidRate){
+               setLowestBidRate(bidRate);
+               setLowestBidder(bidId);
+               return true;
+           }
+       }
+       return false;
+    }
 
+    public Float getLowestBidRate() {
+        return lowestBidRate;
+    }
+
+    public void setLowestBidRate(Float lowestBidRate) {
+        this.lowestBidRate = lowestBidRate;
+    }
+
+    public String getLowestBidder() {
+        return lowestBidder;
+    }
+
+    public void setLowestBidder(String lowestBidder) {
+        this.lowestBidder = lowestBidder;
+    }
+
+    //only updating the fields which are updatable
+    public void update(Project updatedProjectObj){
+        this.title = updatedProjectObj.title;
+        this.description = updatedProjectObj.description;
+        this.tags = updatedProjectObj.tags;
+        this.estDeliveryTime = updatedProjectObj.estDeliveryTime;
     }
 }

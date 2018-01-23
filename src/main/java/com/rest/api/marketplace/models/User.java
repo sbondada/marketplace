@@ -46,6 +46,12 @@ public abstract class User implements MarketplaceResource{
         this.id = id;
     }
 
+
+    //only updating the fields which are updatable
+    public void update(User updatedUserObj){
+        setContactDetails(updatedUserObj.getContactDetails());
+    }
+
 //    public ArrayList<Review> getReviews() {
 //        return reviews;
 //    }

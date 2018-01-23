@@ -21,12 +21,7 @@ public class ProjectsController {
 
     @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME, method = RequestMethod.GET)
     public List<Project> getFilteredProjectList(@RequestParam(value="bid_status", required=false) String bidStatus) {
-        if (isNull(bidStatus)) {
-            return projectService.getProjectList();
-        }
-        else{
             return projectService.getFilteredProjectList(bidStatus);
-        }
     }
 
     @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME + "/{project_id}", method = RequestMethod.GET)

@@ -15,20 +15,31 @@ public class SellerService {
     private SellerDao sellerDaoObj;
 
     public ResponseEntity<String> createSeller(Seller sellerObj) {
+        if (isNull(sellerObj) && isNull(sellerObj.getId())){
+            return new ResponseEntity("Incorrect data. seller with invalid id", HttpStatus.BAD_REQUEST);
+        }
         sellerDaoObj.create(sellerObj);
         return ResponseEntity.ok("Seller Sucessfully created");
     }
 
-    public Seller getSeller(String id) {
-        return sellerDaoObj.get(id);
+    public ResponseEntity<Seller> getSeller(String id) {
+        Seller sellerObj = sellerDaoObj.get(id);
+        if (isNull(sellerObj)){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        else{
+            return new ResponseEntity(sellerObj, HttpStatus.OK);
+        }
     }
 
-    public ResponseEntity<String> editSeller(String id, Seller sellerObj) {
-        if (isNull(sellerDaoObj.get(id))) {
+    public ResponseEntity<String> editSeller(String id, Seller updatedSellerObj) {
+        Seller sellerObj = sellerDaoObj.get(id);
+        if (isNull(sellerObj)) {
             return new ResponseEntity("Seller doesnot exist", HttpStatus.NOT_FOUND);
         }
         else{
-            sellerDaoObj.edit(id, sellerObj);
+            sellerObj.update(updatedSellerObj);
+            sellerDaoObj.edit(id, updatedSellerObj);
             return ResponseEntity.ok("Seller Sucessfully updated");
         }
     }
