@@ -2,6 +2,7 @@ package com.rest.api.marketplace.services;
 
 import com.rest.api.marketplace.daos.SellerDao;
 import com.rest.api.marketplace.models.Seller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,11 +11,8 @@ import static java.util.Objects.isNull;
 
 @Service
 public class SellerService {
+    @Autowired
     private SellerDao sellerDaoObj;
-
-    public SellerService(){
-        sellerDaoObj = new SellerDao();
-    }
 
     public ResponseEntity<String> createSeller(Seller sellerObj) {
         sellerDaoObj.create(sellerObj);

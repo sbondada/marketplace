@@ -2,10 +2,12 @@ package com.rest.api.marketplace.transports;
 
 import com.rest.api.marketplace.models.LookupKey;
 import com.rest.api.marketplace.models.MarketplaceResource;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 // The class needs to be implemented for the persistence storage
+@Component
 public class MongoTransport<T extends MarketplaceResource> implements  MarketplaceTransport<T>{
 
     public static final String NAME = "persistent";

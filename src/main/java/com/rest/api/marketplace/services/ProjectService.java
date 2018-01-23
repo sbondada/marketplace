@@ -4,6 +4,7 @@ import com.rest.api.marketplace.daos.ProjectDao;
 import com.rest.api.marketplace.daos.SellerDao;
 import com.rest.api.marketplace.models.Project;
 import com.rest.api.marketplace.models.Seller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,10 @@ import static java.util.Objects.isNull;
 @Service
 public class ProjectService {
 
+    @Autowired
     private ProjectDao projectDaoObj;
+    @Autowired
     private SellerDao sellerDaoObj;
-
-    public ProjectService(){
-        projectDaoObj = new ProjectDao();
-        sellerDaoObj = new SellerDao();
-    }
 
     public List<Project> getProjectList(){
         return projectDaoObj.getList();
@@ -56,12 +54,10 @@ public class ProjectService {
         }
         if (!isNull(sellerObj)){
             projectDaoObj.create(projectObj);
-            if (projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_ACTIVE)){
-                sellerObj.addActiveProjects(projectObj.getId());
+            if(isNull(projectObj.getProjectStatus())){
+                projectObj.setProjectStatus(Project.PROJECT_STATUS_ACTIVE);
             }
-            else {
-                sellerObj.addFinishedProjects(projectObj.getId());
-            }
+            sellerObj.addActiveProjects(projectObj.getId());
             sellerDaoObj.edit(sellerId, sellerObj);
             return new ResponseEntity("Project Succesfully created", HttpStatus.CREATED);
         }

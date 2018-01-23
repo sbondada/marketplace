@@ -6,6 +6,7 @@ import com.rest.api.marketplace.daos.ProjectDao;
 import com.rest.api.marketplace.models.Bid;
 import com.rest.api.marketplace.models.Buyer;
 import com.rest.api.marketplace.models.Project;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,15 +15,12 @@ import static java.util.Objects.isNull;
 
 @Service
 public class BidService {
+    @Autowired
     private BuyerDao buyerDaoObj;
+    @Autowired
     private BidDao bidDaoObj;
+    @Autowired
     private ProjectDao projectDaoObj;
-
-    public BidService(){
-       buyerDaoObj = new BuyerDao();
-       bidDaoObj = new BidDao();
-       projectDaoObj = new ProjectDao();
-    }
 
    public ResponseEntity<String> createBid(String buyerId, Bid bidObj) {
        Buyer buyerObj = buyerDaoObj.get(buyerId);

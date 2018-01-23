@@ -1,11 +1,13 @@
 package com.rest.api.marketplace.transports;
 
 import com.rest.api.marketplace.models.*;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+@Component
 public class InMemTransport<T extends MarketplaceResource> implements MarketplaceTransport<T>{
     public static final String NAME = "classic";
 

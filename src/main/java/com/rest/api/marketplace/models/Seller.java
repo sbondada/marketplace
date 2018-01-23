@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static java.util.Objects.isNull;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Seller extends User{
 
@@ -33,6 +35,9 @@ public class Seller extends User{
     }
 
     public ArrayList<String> getActiveProjects() {
+        if (isNull(activeProjects)){
+            activeProjects = new ArrayList<>();
+        }
         return activeProjects;
     }
 
@@ -41,6 +46,9 @@ public class Seller extends User{
     }
 
     public ArrayList<String> getFinishedProjects() {
+        if (isNull(finishedProjects)){
+            finishedProjects = new ArrayList<>();
+        }
         return finishedProjects;
     }
 
@@ -65,7 +73,7 @@ public class Seller extends User{
     }
 
     public void addActiveProjects(String projectId){
-        if (!activeProjects.contains(projectId)) {
+        if (!getActiveProjects().contains(projectId)) {
             this.activeProjects.add(projectId);
         }
     }
@@ -75,7 +83,7 @@ public class Seller extends User{
     }
 
     public void addFinishedProjects(String projectId){
-        if (!finishedProjects.contains(projectId)) {
+        if (!getFinishedProjects().contains(projectId)) {
             this.finishedProjects.add(projectId);
         }
     }

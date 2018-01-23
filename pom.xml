@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>marketplace</name>
-	<description>An REST API simulating the marketplace for self-employed to look for the projects</description>
+	<description>An REST API simulating the marketplace for self-employed</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

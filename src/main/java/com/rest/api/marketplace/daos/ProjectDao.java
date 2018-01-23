@@ -8,13 +8,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ProjectDao extends BaseDao<Project>{
 
     public static final String DATASTORE = "project";
-
-    public ProjectDao(){
-        super();
-    }
 
     public List<Project> getList(){
         LookupKey key = new LookupKey(DATASTORE, null);

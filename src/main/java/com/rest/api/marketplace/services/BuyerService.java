@@ -2,6 +2,7 @@ package com.rest.api.marketplace.services;
 
 import com.rest.api.marketplace.daos.BuyerDao;
 import com.rest.api.marketplace.models.Buyer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import static java.util.Objects.isNull;
 @Service
 public class BuyerService {
 
+    @Autowired
     private BuyerDao buyerDaoObj;
 
     public BuyerService(){

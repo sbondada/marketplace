@@ -2,16 +2,14 @@ package com.rest.api.marketplace.daos;
 
 import com.rest.api.marketplace.models.LookupKey;
 import com.rest.api.marketplace.models.Seller;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class SellerDao extends BaseDao<Seller> {
 
     public static final String DATASTORE = "buyer";
-
-    public SellerDao(){
-        super();
-    }
 
     public List<Seller> getList(){
         LookupKey key = new LookupKey(DATASTORE, null);

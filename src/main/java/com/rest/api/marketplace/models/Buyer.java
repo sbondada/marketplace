@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Buyer extends User{
 
@@ -45,6 +47,9 @@ public class Buyer extends User{
     }
 
     public ArrayList<String> getActiveProjects() {
+        if (isNull(activeProjects)) {
+            activeProjects = new ArrayList<>();
+        }
         return activeProjects;
     }
 
@@ -53,6 +58,9 @@ public class Buyer extends User{
     }
 
     public ArrayList<String> getFinishedProjects() {
+        if (isNull(finishedProjects)){
+            finishedProjects = new ArrayList<>();
+        }
         return finishedProjects;
     }
 
@@ -69,6 +77,9 @@ public class Buyer extends User{
     }
 
     public ArrayList<String> getSubmittedBids() {
+        if (isNull(submittedBids)){
+            submittedBids = new ArrayList<>();
+        }
         return submittedBids;
     }
 
@@ -77,8 +88,8 @@ public class Buyer extends User{
     }
 
     public void addBid(String bidId){
-        if (!submittedBids.contains(bidId)){
-            this.submittedBids.add(bidId);
+        if (!getSubmittedBids().contains(bidId)){
+            submittedBids.add(bidId);
         }
     }
 
@@ -87,6 +98,9 @@ public class Buyer extends User{
     }
 
     public void addActiveProjects(String projectId){
+        if (isNull(activeProjects)){
+            activeProjects = new ArrayList<>();
+        }
         if (!activeProjects.contains(projectId)) {
             this.activeProjects.add(projectId);
         }
