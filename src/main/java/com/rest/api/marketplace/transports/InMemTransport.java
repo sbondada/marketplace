@@ -1,6 +1,7 @@
 package com.rest.api.marketplace.transports;
 
 import com.rest.api.marketplace.models.*;
+import com.rits.cloning.Cloner;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,10 +13,12 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
     public static final String NAME = "classic";
 
     private HashMap<String, HashMap<String ,T>> repositoryMap;
+    private Cloner cloner;
 
     public InMemTransport(){
         super();
         this.repositoryMap = new HashMap<>();
+        this.cloner = new Cloner();
     }
 
     public void store(LookupKey key, T object){
@@ -43,7 +46,7 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
         String datastore = key.getDatastore();
         String id = key.getId();
         if (repositoryMap.containsKey(datastore) && repositoryMap.get(datastore).containsKey(id)) {
-            return repositoryMap.get(datastore).get(id);
+            return cloner.deepClone(repositoryMap.get(datastore).get(id));
         }
         else{
             return null;
@@ -53,7 +56,7 @@ public class InMemTransport<T extends MarketplaceResource> implements Marketplac
     public List<T> list(LookupKey key) {
         String datastore = key.getDatastore();
         if (repositoryMap.containsKey(datastore)) {
-            return new ArrayList<>(repositoryMap.get(datastore).values());
+            return new ArrayList<>(cloner.deepClone(repositoryMap.get(datastore).values()));
         }
         else{
             return null;

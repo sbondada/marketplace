@@ -25,8 +25,4 @@ public class PayRate implements MarketplaceModel{
         this.value = value;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

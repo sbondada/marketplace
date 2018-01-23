@@ -11,8 +11,4 @@ public class Tag implements MarketplaceModel{
 
     private String name;
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

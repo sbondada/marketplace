@@ -76,8 +76,4 @@ public class Bid implements MarketplaceResource{
         this.expiryDate = expiryDate;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

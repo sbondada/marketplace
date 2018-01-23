@@ -54,11 +54,6 @@ public abstract class User implements MarketplaceResource{
         setContactDetails(updatedUserObj.getContactDetails());
     }
 
-    @Override
-    public User clone() throws CloneNotSupportedException {
-        return (User) super.clone();
-    }
-
     public ArrayList<Review> getReviews() {
         return reviews;
     }

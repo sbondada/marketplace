@@ -32,8 +32,4 @@ public class Contact implements MarketplaceModel {
         address = address;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
 }

@@ -155,8 +155,4 @@ public class Project implements MarketplaceResource{
         this.estDeliveryTime = updatedProjectObj.estDeliveryTime;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return  super.clone();
-    }
 }
