@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 import static java.util.Objects.isNull;
 
 @Service
@@ -18,6 +20,7 @@ public class SellerService {
         if (isNull(sellerObj) && isNull(sellerObj.getId())){
             return new ResponseEntity("Incorrect data. seller with invalid id", HttpStatus.BAD_REQUEST);
         }
+        sellerObj.setJoinDate(new Date());
         sellerDaoObj.create(sellerObj);
         return ResponseEntity.ok("Seller Sucessfully created");
     }

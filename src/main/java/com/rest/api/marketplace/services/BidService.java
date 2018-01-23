@@ -33,7 +33,7 @@ public class BidService {
            return new ResponseEntity("Incorrect data. bid with same id exists", HttpStatus.BAD_REQUEST);
        }
        Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
-       if (!isNull(projectObj)){
+       if (isNull(projectObj)){
            return new ResponseEntity("Incorrect data. No valid associated project", HttpStatus.BAD_REQUEST);
        }
        if (projectObj.getBidEndDate().before(new Date())){
@@ -43,13 +43,16 @@ public class BidService {
        if (projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE) || projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_FINISHED)){
            return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
        }
+       if (isNull(bidObj) || isNull(bidObj.getId()) || isNull(bidObj.getBidRate()) ) {
+           return new ResponseEntity("Incorrect data. invalid bid object. missing id or bid rate", HttpStatus.BAD_REQUEST);
+       }
        if (!isNull(buyerObj)){
            bidObj.setExpiryDate(projectObj.getBidEndDate());
            bidDaoObj.create(bidObj);
            if (projectObj.adjustBidRate(bidObj.getBidRate(), bidObj.getId())){
                projectDaoObj.create(projectObj);
            }
-           buyerObj.addBid(bidObj.getId());
+           buyerObj.addBidId(bidObj.getId());
            buyerDaoObj.edit(buyerId, buyerObj);
            return new ResponseEntity("Bid Succesfully created", HttpStatus.CREATED);
        }
@@ -60,7 +63,7 @@ public class BidService {
 
     public ResponseEntity<Bid> getBid(String buyerId, String bidId) {
         Buyer buyerObj = buyerDaoObj.get(buyerId);
-        if (!isNull(buyerObj) && buyerObj.getSubmittedBids().contains(bidId)){
+        if (!isNull(buyerObj) && buyerObj.getSubmittedBidIds().contains(bidId)){
             Bid bidObj = bidDaoObj.get(bidId);
             Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
             if (projectObj.getBidEndDate().before(new Date())){
@@ -84,7 +87,7 @@ public class BidService {
             return new ResponseEntity("bid doesnot exist", HttpStatus.NOT_FOUND);
         }
         Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
-        if (!isNull(projectObj)){
+        if (isNull(projectObj)){
             return new ResponseEntity("Incorrect data. No valid associated project", HttpStatus.BAD_REQUEST);
         }
         if (projectObj.getBidEndDate().before(new Date())){
@@ -94,7 +97,10 @@ public class BidService {
         if (projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE) || projectObj.getProjectStatus().equals(Project.PROJECT_STATUS_FINISHED)){
            return new ResponseEntity("Bid closed on the project or project not active. so Cannot edit the bids", HttpStatus.UNAUTHORIZED);
         }
-        if (!isNull(buyerObj) && buyerObj.getSubmittedBids().contains(bidId)){
+        if (isNull(bidObj) || isNull(bidObj.getId()) || isNull(bidObj.getBidRate()) ) {
+            return new ResponseEntity("Incorrect data. invalid bid object. missing id or bid rate", HttpStatus.BAD_REQUEST);
+        }
+        if (!isNull(buyerObj) && buyerObj.getSubmittedBidIds().contains(bidId)){
             bidObj.update(updatedBidObj);
             bidDaoObj.edit(bidId, bidObj);
             if (projectObj.adjustBidRate(bidObj.getBidRate(), bidObj.getId())){

@@ -17,20 +17,20 @@ public class Buyer extends User{
     public static final String REST_RESOURCE_NAME = "buyers";
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy")
-    @JsonProperty("joinDate")
+    @JsonProperty("join_date")
     private Date joinDate;
-    @JsonProperty("active_projects")
-    private ArrayList<String> activeProjects;
-    @JsonProperty("finished_projects")
-    private ArrayList<String> finishedProjects;
+    @JsonProperty("active_project_ids")
+    private ArrayList<String> activeProjectIds;
+    @JsonProperty("finished_project_ids")
+    private ArrayList<String> finishedProjectIds;
     //To be future feature
     @JsonProperty("total_earnings")
     private Long totalEarnings;
     //To be future feature
     @JsonProperty("avg_asking_rate")
     private Float avgAskingRate;
-    @JsonProperty("submitted_bids")
-    private ArrayList<String> submittedBids;
+    @JsonProperty("submitted_bid_ids")
+    private ArrayList<String> submittedBidIds;
 
     public Date getJoinDate() {
         return joinDate;
@@ -48,78 +48,75 @@ public class Buyer extends User{
         this.avgAskingRate = avgAskingRate;
     }
 
-    public ArrayList<String> getActiveProjects() {
-        if (isNull(activeProjects)) {
-            activeProjects = new ArrayList<>();
+    public ArrayList<String> getActiveProjectIds() {
+        if (isNull(activeProjectIds)) {
+            activeProjectIds = new ArrayList<>();
         }
-        return activeProjects;
+        return activeProjectIds;
     }
 
-    public void setActiveProjects(ArrayList<String> activeProjects) {
-        this.activeProjects = activeProjects;
+    public void setActiveProjectIds(ArrayList<String> activeProjectIds) {
+        this.activeProjectIds= activeProjectIds;
     }
 
-    public ArrayList<String> getFinishedProjects() {
-        if (isNull(finishedProjects)){
-            finishedProjects = new ArrayList<>();
+    public ArrayList<String> getFinishedProjectIds() {
+        if (isNull(finishedProjectIds)){
+            finishedProjectIds= new ArrayList<>();
         }
-        return finishedProjects;
+        return finishedProjectIds;
     }
 
-    public void setFinishedProjects(ArrayList<String> finishedProjects) {
-        this.finishedProjects = finishedProjects;
+    public void setFinishedProjectIds(ArrayList<String> finishedProjectIds) {
+        this.finishedProjectIds = finishedProjectIds;
     }
 
-    public long getTotalEarnings() {
+    public Long getTotalEarnings() {
         return totalEarnings;
     }
 
-    public void setTotalEarnings(long totalEarned) {
+    public void setTotalEarnings(Long totalEarned) {
         this.totalEarnings = totalEarnings;
     }
 
-    public ArrayList<String> getSubmittedBids() {
-        if (isNull(submittedBids)){
-            submittedBids = new ArrayList<>();
+    public ArrayList<String> getSubmittedBidIds() {
+        if (isNull(submittedBidIds)){
+            submittedBidIds = new ArrayList<>();
         }
-        return submittedBids;
+        return submittedBidIds;
     }
 
-    public void setSubmittedBids(ArrayList<String> submittedBids) {
-        this.submittedBids = submittedBids;
+    public void setSubmittedBidIds(ArrayList<String> submittedBidIds) {
+        this.submittedBidIds= submittedBidIds;
     }
 
-    public void addBid(String bidId){
-        if (!getSubmittedBids().contains(bidId)){
-            submittedBids.add(bidId);
+    public void addBidId(String bidId){
+        if (!getSubmittedBidIds().contains(bidId)){
+            submittedBidIds.add(bidId);
         }
     }
 
     public void removeBid(String bidId){
-        this.submittedBids.remove(bidId);
+        this.submittedBidIds.remove(bidId);
     }
 
-    public void addActiveProjects(String projectId){
-        if (isNull(activeProjects)){
-            activeProjects = new ArrayList<>();
-        }
-        if (!activeProjects.contains(projectId)) {
-            this.activeProjects.add(projectId);
+    public void addActiveProjectIds(String projectId){
+        if (!getActiveProjectIds().contains(projectId)) {
+            this.activeProjectIds.add(projectId);
         }
     }
 
     public void removeActiveProjects(String projectId){
-        this.activeProjects.remove(projectId);
+        this.activeProjectIds.remove(projectId);
     }
 
     public void addFinishedProjects(String projectId){
-        if (!finishedProjects.contains(projectId)) {
-            this.finishedProjects.add(projectId);
+        if (!getFinishedProjectIds().contains(projectId)) {
+            this.finishedProjectIds.add(projectId);
         }
     }
 
     public void removeFinishedProjects(String projectId){
-        this.finishedProjects.remove(projectId);
+        this.finishedProjectIds.remove(projectId);
     }
 
 

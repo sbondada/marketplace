@@ -19,13 +19,13 @@ public class BuyerController {
         return buyerService.createBuyer(buyerObj);
     }
 
-    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}", method = RequestMethod.GET)
     public ResponseEntity<Buyer> getBuyer(@PathVariable("buyer_id") String id) {
         return buyerService.getBuyer(id);
     }
 
 
-    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "{buyer_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}", method = RequestMethod.POST)
     public ResponseEntity<String> editBuyer(@PathVariable("buyer_id") String id, @RequestBody Buyer buyerObj) {
         return buyerService.editBuyer(id, buyerObj);
     }

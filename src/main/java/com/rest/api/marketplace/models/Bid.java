@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid implements MarketplaceResource{
@@ -18,10 +20,10 @@ public class Bid implements MarketplaceResource{
     //for now the bid rate is always per hour. extras to be the future feature.
     @JsonProperty("bid_rate")
     private Float bidRate;
-    @JsonProperty("publisher_id")
+    @JsonProperty("buyer_id")
     private String buyerId;
 
-    @JsonProperty("expirt_date")
+    @JsonProperty("expiry_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm")
     private Date expiryDate;
 
@@ -60,7 +62,10 @@ public class Bid implements MarketplaceResource{
 
     //only updating the fields which are updatable
     public void update(Bid updatedObj){
-        this.bidRate = updatedObj.getBidRate();
+        Float updatedBidRate = updatedObj.getBidRate();
+        if (isNull(updatedBidRate)) {
+            this.bidRate = updatedBidRate;
+        }
     }
 
     public Date getExpiryDate() {

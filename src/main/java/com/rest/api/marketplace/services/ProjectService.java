@@ -70,7 +70,7 @@ public class ProjectService {
         if ( !sellerId.equals(projectObj.getSellerId())){
             return new ResponseEntity("Incorrect data. project doesnt seem to associate with the seller", HttpStatus.BAD_REQUEST);
         }
-        if (isNull(projectObj) && isNull(projectObj.getId()) && !isNull(projectDaoObj.get(projectObj.getId()))){
+        if ((isNull(projectObj) || isNull(projectObj.getId())) && !isNull(projectDaoObj.get(projectObj.getId()))){
             return new ResponseEntity("Incorrect data. project with invalid id", HttpStatus.BAD_REQUEST);
         }
         if (isNull(projectObj.getBidEndDate()) ){
@@ -81,7 +81,7 @@ public class ProjectService {
         if(isNull(projectObj.getProjectStatus())){
             projectObj.setProjectStatus(Project.PROJECT_STATUS_ACTIVE);
         }
-        sellerObj.addActiveProjects(projectObj.getId());
+        sellerObj.addActiveProjectIds(projectObj.getId());
         sellerDaoObj.edit(sellerId, sellerObj);
         return new ResponseEntity("Project Succesfully created", HttpStatus.CREATED);
     }
@@ -95,7 +95,7 @@ public class ProjectService {
         if (isNull(projectObj)) {
             return new ResponseEntity("Project doesnot exist", HttpStatus.NOT_FOUND);
         }
-        if (!isNull(projectObj) && sellerObj.getActiveProjects().contains(projectId)){
+        if (!isNull(projectObj) && sellerObj.getActiveProjectIds().contains(projectId)){
             projectObj.update(updatedProjectObj);
             projectDaoObj.edit(projectId, projectObj);
             return new ResponseEntity("Project Updated Succesfully", HttpStatus.CREATED);

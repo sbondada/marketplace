@@ -14,13 +14,8 @@ import static java.util.Objects.isNull;
 
 @Service
 public class BuyerService {
-
     @Autowired
     private BuyerDao buyerDaoObj;
-
-    public BuyerService(){
-        buyerDaoObj = new BuyerDao();
-    }
 
     public ResponseEntity<String> createBuyer(Buyer buyerObj) {
         if (isNull(buyerObj) && isNull(buyerObj.getId())){

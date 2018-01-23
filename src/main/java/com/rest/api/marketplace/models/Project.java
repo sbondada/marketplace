@@ -122,17 +122,10 @@ public class Project implements MarketplaceResource{
     }
 
     public boolean adjustBidRate(Float bidRate, String bidId){
-       if(isNull(bidRate) || isNull(bidId)){
+       if(isNull(getLowestBidRate()) || getLowestBidRate() > bidRate){
            setLowestBidRate(bidRate);
            setLowestBidder(bidId);
            return true;
-       }
-       else{
-           if(getLowestBidRate() > bidRate){
-               setLowestBidRate(bidRate);
-               setLowestBidder(bidId);
-               return true;
-           }
        }
        return false;
     }
