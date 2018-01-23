@@ -51,4 +51,8 @@ public class Review implements MarketplaceResource{
         this.publisher = publisher;
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return  super.clone();
+    }
 }

@@ -22,7 +22,7 @@ public class ProjectService {
     @Autowired
     private SellerDao sellerDaoObj;
 
-    public List<Project> getFilteredProjectList(String bidStatus){
+    public List<Project> getFilteredProjectList(String bidStatus) {
         List<Project> projectList = projectDaoObj.getList();
         for( Project projectObj: projectList){
             if (projectObj.getBidEndDate().before(new Date())){
@@ -31,8 +31,17 @@ public class ProjectService {
             }
             if (!projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE)){
                 // only showing the lowest bid rate and the rater if the bid is closed.
-                projectObj.setLowestBidRate(null);
-                projectObj.setLowestBidder(null);
+                try {
+                    //had to clone because the modifying the value would modify the results of the datastore
+                    // this is not required for the permanent datastore
+                    Project projectObjClone = (Project) projectObj.clone();
+                    projectList.remove(projectObj);
+                    projectObjClone.setLowestBidRate(null);
+                    projectObjClone.setLowestBidder(null);
+                    projectList.add(projectObjClone);
+                }
+                catch (CloneNotSupportedException e){
+                }
             }
            if (!isNull(bidStatus) && !projectObj.getBidStatus().equals(bidStatus)){
                projectList.remove(projectObj);
@@ -55,8 +64,16 @@ public class ProjectService {
         }
         if (!projectObj.getBidStatus().equals(Project.BID_STATUS_CLOSE)){
             // only showing the lowest bid rate and the rater if the bid is closed.
-            projectObj.setLowestBidRate(null);
-            projectObj.setLowestBidder(null);
+            try {
+                //had to clone because the modifying the value would modify the results of the datastore
+                // this is not required for the permanent datastore
+                projectObj = (Project) projectObj.clone();
+                projectObj.setLowestBidRate(null);
+                projectObj.setLowestBidder(null);
+            }
+            catch (CloneNotSupportedException e){
+                return new ResponseEntity<Project>(HttpStatus.UNPROCESSABLE_ENTITY);
+            }
         }
         return new ResponseEntity(projectObj, HttpStatus.OK);
 

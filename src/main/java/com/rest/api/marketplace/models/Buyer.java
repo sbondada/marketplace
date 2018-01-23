@@ -119,6 +119,4 @@ public class Buyer extends User{
         this.finishedProjectIds.remove(projectId);
     }
 
-
-
 }

@@ -3,6 +3,8 @@ package com.rest.api.marketplace.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class User implements MarketplaceResource{
 
@@ -12,7 +14,7 @@ public abstract class User implements MarketplaceResource{
     @JsonProperty("contact_details")
     private Contact contactDetails;
 //    //To be a future feature
-//    private ArrayList<Review> reviews;
+    private ArrayList<Review> reviews;
 
     public String getName() {
         return name;
@@ -52,11 +54,16 @@ public abstract class User implements MarketplaceResource{
         setContactDetails(updatedUserObj.getContactDetails());
     }
 
-//    public ArrayList<Review> getReviews() {
-//        return reviews;
-//    }
-//
-//    public void setReviews(ArrayList<Review> reviews) {
-//        this.reviews = reviews;
-//    }
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return (User) super.clone();
+    }
+
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

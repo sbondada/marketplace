@@ -31,4 +31,9 @@ public class Contact implements MarketplaceModel {
     public void setAddress(String address) {
         address = address;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

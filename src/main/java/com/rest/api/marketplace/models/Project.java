@@ -41,6 +41,7 @@ public class Project implements MarketplaceResource{
     @JsonProperty("lowest_bidder")
     private String lowestBidder;
 
+
     public String getId() {
         return id;
     }
@@ -152,5 +153,10 @@ public class Project implements MarketplaceResource{
         this.description = updatedProjectObj.description;
         this.tags = updatedProjectObj.tags;
         this.estDeliveryTime = updatedProjectObj.estDeliveryTime;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return  super.clone();
     }
 }
