@@ -54,7 +54,7 @@ public class BidService {
            }
            buyerObj.addBidId(bidObj.getId());
            buyerDaoObj.edit(buyerId, buyerObj);
-           return new ResponseEntity("Bid Succesfully created", HttpStatus.CREATED);
+           return new ResponseEntity("Bid Successfully created", HttpStatus.CREATED);
        }
        else{
            return new ResponseEntity("Bid creation failed, Buyer not found", HttpStatus.NOT_FOUND);
@@ -106,10 +106,10 @@ public class BidService {
             if (projectObj.adjustBidRate(bidObj.getBidRate(), bidObj.getId())){
                 projectDaoObj.create(projectObj);
             }
-           return new ResponseEntity("Bid Updated Succesfully", HttpStatus.CREATED);
+           return new ResponseEntity("Bid Updated Successfully", HttpStatus.CREATED);
         }
         else{
-            return new ResponseEntity("Bid creation failed, Buyer not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("Bid Updation failed, Buyer not found", HttpStatus.NOT_FOUND);
         }
 
     }
