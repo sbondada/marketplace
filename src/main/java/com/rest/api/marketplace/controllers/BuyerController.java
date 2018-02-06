@@ -24,7 +24,7 @@ public class BuyerController {
                     @ApiResponse(code = 201, message = "Buyer Successfully Created")
             }
     )
-    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME , method = RequestMethod.PUT)
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME , method = RequestMethod.POST)
     public ResponseEntity<String> createBuyer(@RequestBody Buyer buyerObj) {
         return buyerService.createBuyer(buyerObj);
     }
@@ -47,7 +47,7 @@ public class BuyerController {
                     @ApiResponse(code = 200, message = "Buyer Successfully Updated")
             }
     )
-    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}", method = RequestMethod.PUT)
     public ResponseEntity<String> editBuyer(@PathVariable("buyer_id") String id, @RequestBody Buyer buyerObj) {
         return buyerService.editBuyer(id, buyerObj);
     }

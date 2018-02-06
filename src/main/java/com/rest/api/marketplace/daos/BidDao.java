@@ -2,6 +2,8 @@ package com.rest.api.marketplace.daos;
 
 import com.rest.api.marketplace.models.Bid;
 import com.rest.api.marketplace.models.LookupKey;
+import com.rest.api.marketplace.transports.DatastoreDoesnotExistException;
+import com.rest.api.marketplace.transports.KeyDoesnotExistException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +15,7 @@ public class BidDao extends BaseDao<Bid> {
         store(key, bidObj);
     }
 
-    public Bid get(String id){
+    public Bid get(String id) throws DatastoreDoesnotExistException, KeyDoesnotExistException{
         LookupKey key = new LookupKey(DATASTORE, id);
         return load(key);
     }

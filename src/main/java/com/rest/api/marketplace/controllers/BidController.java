@@ -29,7 +29,7 @@ public class BidController {
             }
     )
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}/" + Bid.REST_RESOURCE_NAME,
-                    method = RequestMethod.PUT)
+                    method = RequestMethod.POST)
     public ResponseEntity<String> createBid(@PathVariable("buyer_id") String buyerId, @RequestBody Bid bidObj) {
         return bidService.createBid(buyerId, bidObj);
     }
@@ -55,7 +55,7 @@ public class BidController {
             }
     )
     @RequestMapping(value = "/" + Buyer.REST_RESOURCE_NAME + "/{buyer_id}/" + Bid.REST_RESOURCE_NAME + "/{bid_id}",
-            method = RequestMethod.POST)
+            method = RequestMethod.PUT)
     public ResponseEntity<String> editBid(@PathVariable("buyer_id") String buyerId, @PathVariable("bid_id") String bidId,
                                          @RequestBody Bid bidObj) {
         return bidService.editBid(buyerId, bidId, bidObj);

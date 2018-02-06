@@ -3,9 +3,7 @@ package com.rest.api.marketplace.daos;
 import com.rest.api.marketplace.MarketplaceConfiguration;
 import com.rest.api.marketplace.models.LookupKey;
 import com.rest.api.marketplace.models.MarketplaceResource;
-import com.rest.api.marketplace.transports.InMemTransport;
-import com.rest.api.marketplace.transports.MarketplaceTransport;
-import com.rest.api.marketplace.transports.MongoTransport;
+import com.rest.api.marketplace.transports.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -45,14 +43,14 @@ public abstract class BaseDao<T extends MarketplaceResource> implements Dao<T>{
         }
         transport.update(key, object);
     }
-    public T load(LookupKey key){
-        if(isNull(transport)){
+    public T load(LookupKey key) throws DatastoreDoesnotExistException, KeyDoesnotExistException{
+        if (isNull(transport)) {
             init();
         }
         return (T) transport.load(key);
     }
-    public List<T> list(LookupKey key) {
-        if(isNull(transport)){
+    public List<T> list(LookupKey key) throws DatastoreDoesnotExistException{
+        if (isNull(transport)) {
             init();
         }
         return transport.list(key);

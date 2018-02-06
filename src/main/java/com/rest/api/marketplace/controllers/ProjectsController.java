@@ -24,7 +24,7 @@ public class ProjectsController {
     private ProjectService projectService;
 
     @RequestMapping(value = "/" + Project.REST_RESOURCE_NAME, method = RequestMethod.GET)
-    public List<Project> getFilteredProjectList(@RequestParam(value="bid_status", required=false) String bidStatus) {
+    public ResponseEntity<List<Project>> getFilteredProjectList(@RequestParam(value="bid_status", required=false) String bidStatus) {
             return projectService.getFilteredProjectList(bidStatus);
     }
 
@@ -46,7 +46,7 @@ public class ProjectsController {
             }
     )
     @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}/" + Project.REST_RESOURCE_NAME,
-                    method = RequestMethod.PUT)
+                    method = RequestMethod.POST)
     public ResponseEntity<String> createProject(@PathVariable("seller_id") String selllerId,
                                                 @RequestBody Project projectObj) {
       return projectService.createProject(selllerId, projectObj);
@@ -60,7 +60,7 @@ public class ProjectsController {
             }
     )
     @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}/" + Project.REST_RESOURCE_NAME +"/{project_id}",
-                    method = RequestMethod.POST)
+                    method = RequestMethod.PUT)
     public ResponseEntity<String> editProject(@PathVariable("seller_id") String sellerId,
                                                @PathVariable("project_id") String projectId,
                                                @RequestBody Project projectObj){

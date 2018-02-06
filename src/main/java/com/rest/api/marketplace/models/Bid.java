@@ -27,6 +27,7 @@ public class Bid implements MarketplaceResource{
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm")
     private Date expiryDate;
 
+
     public String getId() {
         return id;
     }

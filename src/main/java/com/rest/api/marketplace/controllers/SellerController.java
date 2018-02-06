@@ -23,7 +23,7 @@ public class SellerController {
                     @ApiResponse(code = 201, message = "Seller Successfully Created")
             }
     )
-    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME , method = RequestMethod.PUT)
+    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME , method = RequestMethod.POST)
     public ResponseEntity<String> createSeller(@RequestBody Seller sellerObj) {
         return sellerService.createSeller(sellerObj);
     }
@@ -45,7 +45,7 @@ public class SellerController {
                     @ApiResponse(code = 200, message = "Seller Successfully Updated")
             }
     )
-    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/" + Seller.REST_RESOURCE_NAME + "/{seller_id}", method = RequestMethod.PUT)
     public ResponseEntity<String> editSeller(@PathVariable("seller_id") String id, @RequestBody Seller sellerObj) {
         return sellerService.editSeller(id, sellerObj);
     }

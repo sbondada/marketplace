@@ -9,8 +9,8 @@ public interface MarketplaceTransport<T extends MarketplaceResource> {
 
     void store(LookupKey key, T object);
     void update(LookupKey key, T object);
-    T load(LookupKey key);
-    List<T> list(LookupKey key);
+    T load(LookupKey key) throws DatastoreDoesnotExistException,KeyDoesnotExistException;
+    List<T> list(LookupKey key) throws DatastoreDoesnotExistException;
     void delete(LookupKey key);
 
 }
