@@ -80,6 +80,7 @@ public class BidService {
                 Bid bidObj = bidDaoObj.get(bidId);
                 Project projectObj = projectDaoObj.get(bidObj.getAssociatedProjectId());
                 if (projectObj.getBidEndDate().before(new Date())) {
+                    LOGGER.debug("Bid status is closed, So cant update bid Object with id " + bidObj.getId());
                     projectObj.setBidStatus(Project.BID_STATUS_CLOSE);
                     projectDaoObj.create(projectObj);
                 }
