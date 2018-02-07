@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class SellerDao extends BaseDao<Seller> {
 
-    public static final String DATASTORE = "buyer";
+    public static final String DATASTORE = "seller";
 
     public List<Seller> getList() throws DatastoreDoesnotExistException{
         LookupKey key = new LookupKey(DATASTORE, null);

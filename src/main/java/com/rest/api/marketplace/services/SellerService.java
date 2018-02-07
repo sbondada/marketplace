@@ -25,7 +25,7 @@ public class SellerService {
 
     public ResponseEntity<String> createSeller(Seller sellerObj) {
         String responseObject;
-        if (isNull(sellerObj) && isNull(sellerObj.getId())){
+        if (isNull(sellerObj) || isNull(sellerObj.getId())){
             responseObject = "Incorrect data. seller with invalid id";
             LOGGER.debug(responseObject);
             return new ResponseEntity(responseObject, HttpStatus.BAD_REQUEST);

@@ -25,8 +25,8 @@ public class BuyerService {
 
     public ResponseEntity<String> createBuyer(Buyer buyerObj) {
         String responseMesssage;
-        if (isNull(buyerObj) && isNull(buyerObj.getId())){
-            responseMesssage = "Incorrect data. Undefined buyer object or buyer with invalid id";
+        if (isNull(buyerObj) || isNull(buyerObj.getId())){
+            responseMesssage = "Incorrect data. Undefined buyer object or do not have an id";
             LOGGER.debug(responseMesssage);
             return new ResponseEntity(responseMesssage, HttpStatus.BAD_REQUEST);
         }

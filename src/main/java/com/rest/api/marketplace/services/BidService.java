@@ -33,7 +33,7 @@ public class BidService {
    public ResponseEntity<String> createBid(String buyerId, Bid bidObj) {
        try {
            String responseString;
-           if (isNull(bidObj) || isNull(bidObj.getId()) || isNull(bidObj.getBidRate())) {
+           if (isNull(bidObj) || isNull(bidObj.getBidRate())) {
                responseString = "Incorrect data. invalid bid object. missing id or bid rate";
                LOGGER.debug(responseString);
                return new ResponseEntity(responseString, HttpStatus.BAD_REQUEST);

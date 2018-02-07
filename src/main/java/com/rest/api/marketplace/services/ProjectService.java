@@ -82,6 +82,11 @@ public class ProjectService {
         try {
             String responseString;
             Seller sellerObj = sellerDaoObj.get(sellerId);
+            if (isNull(projectObj) || isNull(projectObj.getId())) {
+                responseString = "Incorrect data. project object not provided or do not have an id";
+                LOGGER.debug(responseString);
+                return new ResponseEntity(responseString, HttpStatus.BAD_REQUEST);
+            }
             if (isNull(projectObj.getBidEndDate())) {
                 responseString = "Incorrect data. provide bid end date";
                 LOGGER.debug(responseString);
@@ -91,11 +96,6 @@ public class ProjectService {
                 responseString = "Incorrect data. project(" + projectObj.getId() + ") doesnt seem to associate with the seller(" + sellerId + ")";
                 LOGGER.debug(responseString);
                 return new ResponseEntity(responseString, HttpStatus.UNAUTHORIZED);
-            }
-            if (isNull(projectObj.getId()) && !isNull(projectDaoObj.get(projectObj.getId()))) {
-                responseString = "Incorrect data. project with invalid id (" + projectObj.getId() + ")";
-                LOGGER.debug(responseString);
-                return new ResponseEntity(responseString, HttpStatus.BAD_REQUEST);
             }
 
             projectObj.setCreationDate(new Date());
